@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'shop'
+    'shop',
+    # 'shop.apps.ShopConfig',
 ]
 
 MIDDLEWARE = [
@@ -55,7 +56,7 @@ ROOT_URLCONF = 'myshop.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['./templates', ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -106,7 +107,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 
@@ -120,5 +121,12 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# place where files got uploaded when user upload a file
 MEDIA_URL = '/media/'
+# local directory where media files will be saved in our system. we added BASE_DIR of our project with media folder
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+
+# To store the session of a cart
+CART_SESSION_ID = 'cart'
+

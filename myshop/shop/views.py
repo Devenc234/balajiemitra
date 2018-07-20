@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Category, Product
-
+from django.http import Http404
 # Create your views here.
 
 # Here category slug is an optional parameter.
@@ -15,13 +15,24 @@ def product_list(request, category_slug=None):
         category = get_object_or_404(Category, slug=category_slug)
         products = products.filter(category=category)
 
-    return render(request, 'shop/product/list.html', {'category': category,
-                                                      'categories': categories,
-                                                      'products': products})
+    return render(request, 'shop/products/list.html', context={'category': category,
+                                                               'categories': categories,
+                                                               'products': products},)
 
 
 def product_detail(request, id, slug):
     product = get_object_or_404(Product, id=id, slug=slug, available=True)
-    cart_product_form = CartAddProductForm()
-    return render(request, 'shop/product/detail.html', {'product': product,
-                                                        'cart_product_form': cart_product_form})
+    cart_product_form = None
+    # cart_product_form = CartAddProductForm()
+    return render(request, 'shop/products/detail.html', context={'product': product,
+                                                                 'cart_product_form': cart_product_form},)
+
+
+# product = Product.objects.filter(id=product_id, slug=slug)
+# categories = Category.objects.all()
+# category = None
+
+# try:
+#     book_id = Product.objects.get(pk=product_id)
+# except Product.DoesNotExist:
+#     raise Http404("fuck man, your product does not exist")
