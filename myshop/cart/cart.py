@@ -28,7 +28,7 @@ class Cart(object):
         """
         # We use product_id to remember what has been added to cart till now.
         # We have converted product_id to string because django uses json to serialize session data
-        # and json allow only string string for keys. for value part, we can put objects
+        # and json allow only string string for keys. for value part, we can put integers but not decimal
         product_id = str(product.id)
 
         if product_id not in self.cart:
@@ -44,7 +44,6 @@ class Cart(object):
     def save(self):
         # update the session cart
         self.session[settings.CART_SESSION_ID] = self.cart
-
         # mark the session as "modified" to make sure it is saved
         self.session.modified = True
 
@@ -73,7 +72,7 @@ class Cart(object):
 
         for item in self.cart.values():
             item['price'] = Decimal(item['price'])
-            item['total_price'] = Decimal(item['price']*item['quantity'])
+            item['total_price'] = item['price']*item['quantity']
             yield item
 
     def __len__(self):
@@ -84,7 +83,8 @@ class Cart(object):
         return sum(item['quantity'] for item in self.cart.values())
 
     def get_total_price(self):
-        return sum(item['quantity']*item['price'] for item in self.cart.values())
+        # Because we are not using iter method here, so price comes as string. we have to convert price to decimal
+        return sum(item['quantity']*Decimal(item['price']) for item in self.cart.values())
 
     def clear(self):
         """
