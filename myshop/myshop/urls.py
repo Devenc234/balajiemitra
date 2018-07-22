@@ -27,6 +27,7 @@ urlpatterns = [
 
     # This needs to be added before shop urls
     url(r'^cart/', include('cart.urls', namespace='cart')),
+    url(r'^orders/', include('orders.urls', namespace='orders')),
 
     # to add urls for shop application
     # namespace to differentiate two same url name from two different apps, like shop/product , warehouse/product
