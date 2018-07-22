@@ -25,9 +25,14 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
 
+    # This needs to be added before shop urls
+    url(r'^cart/', include('cart.urls', namespace='cart')),
+
     # to add urls for shop application
     # namespace to differentiate two same url name from two different apps, like shop/product , warehouse/product
     url(r'^', include('shop.urls', namespace='shop')),
+
+
 ]
 
 # We only serve static files in development. Never serve static files in production

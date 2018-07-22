@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'shop',
     # 'shop.apps.ShopConfig',
+    'cart',
 ]
 
 MIDDLEWARE = [
@@ -127,6 +128,6 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 
-# To store the session of a cart
+# To store the session of a cart, These session are per visitor basis in django
 CART_SESSION_ID = 'cart'
 
