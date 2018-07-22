@@ -36,7 +36,7 @@ class Product(models.Model):
 
     class Meta:
         ordering = ['-created']
-        index_together = [['id', 'slug'], ]  # To query product based on ID and slug both
+        index_together = (('id', 'slug'), )  # To query product based on ID and slug both
 
     def __str__(self):
         return self.name
