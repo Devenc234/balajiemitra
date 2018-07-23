@@ -12,8 +12,33 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 import os
 
+# Celery settings
+
+CELERY_BROKER_URL = 'amqp://guest:guest@localhost:5672'
+
+#: Only add pickle to this list if your broker is secured
+#: from unwanted access (see userguide/security.html)
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_RESULT_BACKEND = 'db+sqlite:///results.sqlite'
+CELERY_TASK_SERIALIZER = 'json'
+
+
+EMAIL_HOST = 'smtp.sendgrid.net'
+# for SSL connection
+EMAIL_PORT = 587
+# For TLS connection
+# EMAIL_PORT = 25587
+EMAIL_HOST_USER = 'apikey'
+EMAIL_HOST_PASSWORD = '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'
+EMAIL_USE_TLS = True
+
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+ADMINS = (
+    ('devenc234', 'devendra072@gmail.com'),
+)
 
 
 # Quick-start development settings - unsuitable for production

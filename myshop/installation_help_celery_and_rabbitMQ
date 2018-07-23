@@ -1,0 +1,69 @@
+For Ubuntu 64 bit
+
+Found it here: https://github.com/rabbitmq/rabbitmq-server/issues/515
+
+Yap sure. My install shell script is:
+
+Install Erlang
+cd /tmp/
+wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb
+sudo dpkg -i erlang-solutions_1.0_all.deb
+sudo apt-get update -y
+sudo apt-get install erlang -y
+
+Install RabbitMQ from source
+cd /tmp/
+echo 'echo "deb http://www.rabbitmq.com/debian/ testing main" >> /etc/apt/sources.list' | sudo -s
+wget https://www.rabbitmq.com/rabbitmq-signing-key-public.asc
+sudo apt-key add rabbitmq-signing-key-public.asc
+sudo apt-get update -y
+sudo apt-get install rabbitmq-server -y
+
+pip install celery
+
+pip install SQLAlchemy
+
+
+# To check the celery
+# I have enable capta for devenc234@gmail.com and changed Host.username = apikey
+celery -A myshop worker --loglevel=info
+
+# How to run celery with django
+https://github.com/celery/celery/tree/master/examples/django
+
+What is rabbitmq
+https://www.digitalocean.com/community/tutorials/how-to-install-and-manage-rabbitmq
+
+
+
+
+
+
+
+
+
+
+Another answer:
+
+# Simplest way to install rabbitMQ in ubuntu:
+
+echo "deb http://www.rabbitmq.com/debian/ testing main"  | sudo tee  /etc/apt/sources.list.d/rabbitmq.list > /dev/null
+wget https://www.rabbitmq.com/rabbitmq-signing-key-public.asc
+sudo apt-key add rabbitmq-signing-key-public.asc
+sudo apt-get update
+sudo apt-get install rabbitmq-server -y
+sudo service rabbitmq-server start
+sudo rabbitmq-plugins enable rabbitmq_management
+sudo service rabbitmq-server restart
+
+# Default username / password will be guest / guest and port for will be 5672;
+
+# if you want to change the username and password or add new user please follow these
+
+sudo rabbitmqctl add_user user_name password_for_this_user
+sudo rabbitmqctl set_user_tags user_name administrator
+sudo rabbitmqctl set_permissions -p / user_name ".*" ".*" ".*"
+
+# and to delete guest user please run this command
+
+sudo rabbitmqctl delete_user guest
