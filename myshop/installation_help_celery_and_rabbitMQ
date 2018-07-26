@@ -26,6 +26,7 @@ pip install SQLAlchemy
 
 # To check the celery
 # I have enable capta for devenc234@gmail.com and changed Host.username = apikey
+# Run belwo command from myshop directory
 celery -A myshop worker --loglevel=info
 sudo rabbitmqctl status
 celery -A myshop flower

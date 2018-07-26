@@ -13,9 +13,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 import os
 
 # Celery settings
-
 CELERY_BROKER_URL = 'amqp://guest:guest@localhost:5672'
-
 #: Only add pickle to this list if your broker is secured
 #: from unwanted access (see userguide/security.html)
 CELERY_ACCEPT_CONTENT = ['json']

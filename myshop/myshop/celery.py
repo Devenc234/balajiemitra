@@ -18,7 +18,7 @@ app = Celery('myshop')
 # in uppercase instead of lowercase, and start with CELERY_,
 # so for example the task_always_eager setting becomes CELERY_TASK_ALWAYS_EAGER,
 # and the broker_url setting becomes CELERY_BROKER_URL.
-app.config_from_object('django.conf:settings')
+app.config_from_object('django.conf:settings', namespace='CELERY')
 
 # Load task modules from all registered Django app configs.
 # a common practice for reusable apps is to define all tasks in a separate tasks.py module,
@@ -33,7 +33,7 @@ app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
 #     - tasks.py
 #     - models.py
 
-#
-# @app.task(bind=True)
-# def debug_task(self):
-#     print('Request: {0!r}'.format(self.request))
+
+@app.task(bind=True)
+def debug_task(self):
+    print('Request: {0!r}'.format(self.request))
