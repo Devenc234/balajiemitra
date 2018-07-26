@@ -28,8 +28,8 @@ EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_PORT = 587
 # For TLS connection
 # EMAIL_PORT = 25587
-EMAIL_HOST_USER = 'apikey'
-EMAIL_HOST_PASSWORD = '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'
+EMAIL_HOST_USER = os.environ.get('BALAJIEMITRA_EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('BALAJIEMITRA_EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True
 
 
@@ -45,8 +45,7 @@ ADMINS = (
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '#f7=@*ic5jg)p&cmnazo655b*o1tlzuyi#ht)l!r!w&$05$mcd'
-
+SECRET_KEY = os.environ.get('BALAJIEMITRA_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 

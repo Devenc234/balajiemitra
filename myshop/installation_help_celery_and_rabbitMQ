@@ -27,6 +27,8 @@ pip install SQLAlchemy
 # To check the celery
 # I have enable capta for devenc234@gmail.com and changed Host.username = apikey
 celery -A myshop worker --loglevel=info
+sudo rabbitmqctl status
+celery -A myshop flower
 
 # How to run celery with django
 https://github.com/celery/celery/tree/master/examples/django
