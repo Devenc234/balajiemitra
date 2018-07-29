@@ -3,6 +3,7 @@ from paypal.standard.models import ST_PP_COMPLETED
 from paypal.standard.ipn.signals import invalid_ipn_received
 from orders.models import Order
 
+
 # TODO: still has to check what this do and how
 def payment_notification(sender, **kwargs):
     ipn_object = sender
