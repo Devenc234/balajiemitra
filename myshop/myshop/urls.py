@@ -30,7 +30,7 @@ urlpatterns = [
     url(r'^orders/', include('orders.urls', namespace='orders')),
     url(r'^paypal/', include('paypal.standard.ipn.urls')),
     url(r'^payment/', include('payment.urls', namespace='payment')),
-
+    url(r'^coupons/', include('coupons.urls', namespace='coupons')),
     # to add urls for shop application
     # namespace to differentiate two same url name from two different apps, like shop/product , warehouse/product
     url(r'^', include('shop.urls', namespace='shop')),

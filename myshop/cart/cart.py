@@ -1,6 +1,7 @@
 from decimal import Decimal
 from django.conf import settings
 from shop.models import Product
+from coupons.models import Coupon
 
 
 class Cart(object):
@@ -17,6 +18,9 @@ class Cart(object):
             # save an empty cart in the session
             cart = self.session[settings.CART_SESSION_ID] = {}
         self.cart = cart
+
+        # store current applied coupon
+        self.coupon_id = self.session.get('coupon_id')
 
     def add(self, product, quantity=1, update_quantity=False):
         """
@@ -82,6 +86,8 @@ class Cart(object):
         """
         return sum(item['quantity'] for item in self.cart.values())
 
+    # TODO: Need to change UI for get_total_price or get_total_price_after_discount after adding discount
+    # currently for cart detail and invoice, after applying discount, old total cost printed
     def get_total_price(self):
         # Because we are not using iter method here, so price comes as string. we have to convert price to decimal
         return sum(item['quantity']*Decimal(item['price']) for item in self.cart.values())
@@ -93,3 +99,18 @@ class Cart(object):
         """
         self.session[settings.CART_SESSION_ID] = {}
         self.session.modified = True
+
+    @property
+    def coupon(self):
+        if self.coupon_id:
+            return Coupon.objects.get(id=self.coupon_id)
+        return None
+
+    def get_discount(self):
+        if self.coupon:
+            return (self.coupon.discount / Decimal('100')) \
+                   * self.get_total_price()
+        return Decimal('0')
+
+    def get_total_price_after_discount(self):
+        return self.get_total_price() - self.get_discount()
