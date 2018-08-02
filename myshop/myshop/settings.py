@@ -162,3 +162,7 @@ CART_SESSION_ID = 'cart'
 # django-paypal setting
 PAYPAL_RECEIVER_EMAIL='devendra072@gmail.com'
 PAYPAL_TEST = True
+
+REDIS_HOST = 'localhost'
+REDIS_PORT = 6379
+REDIS_DB = 1
