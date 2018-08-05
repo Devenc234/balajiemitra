@@ -1,0 +1,50 @@
+Let's try our recommendation engine. Make sure you include several Product objects in the database and
+ initialize the Redis server using the following command from the shell:
+
+redis-server
+
+
+
+Open another shell, execute
+
+python manage.py shell
+
+
+
+
+and write the following code to retrieve several products:
+
+from shop.models import Product
+hp_laptop = Product.objects.get(name='HP laptop model 5492')
+oneplus6 = Product.objects.get(name='OnePlus6')
+minote5 = Product.objects.get(name='minote5')
+lenovoa6000 = Product.objects.get(name='LenovoA6000')
+
+
+
+
+
+Then, add some test purchases to the recommendation engine:
+
+from shop.recommender import Recommender
+r = Recommender()
+r.products_bought([hp_laptop, oneplus6])
+r.products_bought([hp_laptop, minote5])
+r.products_bought([hp_laptop, minote5, oneplus6])
+r.products_bought([lenovoa6000, minote5])
+r.products_bought([oneplus6, lenovoa6000])
+
+
+
+Let's take a look at the recommended products for a single product:
+
+r.suggest_products_for([oneplus6])
+
+As you can see, the order for recommended products is based on their score.
+Let's get recommendations for multiple products with aggregated scores:
+
+r.suggest_products_for([oneplus6,minote5])
+
+We have verified that our recommendation algorithm works as expected.
+
+
